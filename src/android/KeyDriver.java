@@ -1,7 +1,7 @@
 package com.lexa.keydriver;
 
-import android.view.KeyEvent
-import android.content.Intent
+import android.view.KeyEvent;
+import android.content.Intent;
 import java.lang.reflect.Field;
 import java.util.*;
 import org.apache.cordova.*;
@@ -20,7 +20,11 @@ public class KeyDriver extends CordovaPlugin {
         try {
             for(Field field : KeyEvent.class.getDeclaredFields()) {
                 if(field.getName().startsWith("KEYCODE_")) {
-                    keycodes.put(field.getName(), field.getInt(null));
+                    try {
+                        keycodes.put(field.getName(), field.getInt(null));
+                    } catch(IllegalAccessException e) {
+                        // ignore static key code (all key codes are public).
+                    }
                 }
             }
         } catch(SecurityException ex) {
@@ -54,7 +58,6 @@ public class KeyDriver extends CordovaPlugin {
         intent.setAction(Intent.ACTION_MEDIA_BUTTON);
         KeyEvent key = new KeyEvent(KeyEvent.ACTION_DOWN, keycodes.get(keycode).intValue());
         intent.putExtra(Intent.EXTRA_KEY_EVENT, key);
-        sendOrderedBroadcast(intent, null);
         ((CordovaActivity)this.cordova.getActivity()).sendBroadcast(intent);
         return true;
     }
