@@ -25,9 +25,12 @@ public class KeyDriver extends CordovaPlugin {
                 if(field.getName().startsWith("KEYCODE_")) {
                     try {
                         keycodes.put(field.getName(), field.getInt(null));
+                        Log.d("KeyDriver", "I know: " + field.getName());
                     } catch(IllegalAccessException e) {
                         // ignore static key code (all key codes are public).
                         Log.w("KeyDriver", "Can't access field's value: " + field.getName());
+                    } catch(IllegalArgumentException e) {
+                        Log.i("KeyDriver", "Illegal argument: " + field.getName());
                     }
                 }
             }
