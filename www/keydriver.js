@@ -13,7 +13,7 @@
             success(args);
         }, function(err) {
             fail(err);
-        }, 'KeyDirver', 'broadcastKey', [keycode]);
+        }, 'KeyDriver', 'broadcastKey', [keycode]);
     };
 
     window.keydriver = new KeyDriver();
