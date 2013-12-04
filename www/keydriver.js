@@ -8,12 +8,12 @@
 
     };
 
-    WebIntent.prototype.broadcastKey = function(params, success, fail) {
+    WebIntent.prototype.broadcastKey = function(keycode, success, fail) {
         return cordova.exec(function(args) {
             success(args);
         }, function(err) {
             fail(err);
-        }, 'KeyDirver', 'broadcastKey', [params]);
+        }, 'KeyDirver', 'broadcastKey', [keycode]);
     };
 
     window.keydriver = new KeyDriver();

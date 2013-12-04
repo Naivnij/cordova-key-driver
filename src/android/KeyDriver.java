@@ -1,5 +1,7 @@
 package com.lexa.keydriver;
 
+import android.view.KeyEvent
+import android.content.Intent
 import java.lang.reflect.Field;
 import java.util.*;
 import org.apache.cordova.*;
@@ -36,7 +38,7 @@ public class KeyDriver extends CordovaPlugin {
                 if(keycode == null) {
                     callbackContext.error("First argument has to be string specifying key code.");
                 } else if(this.broadcastKey(keycode)) callbackContext.success();
-                       else success.error("Unknown key code name: " + keycode);
+                       else callbackContext.error("Unknown key code name: " + keycode);
             }
             return true;
         }
